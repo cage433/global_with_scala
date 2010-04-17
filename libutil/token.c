@@ -43,6 +43,7 @@ int crflag;			/* 1: return '\n', 0: doesn't return */
 int cmode;			/* allow token which start with '#' */
 int cppmode;			/* allow '::' as a token */
 int ymode;			/* allow token which start with '%' */
+int scalamode;
 char token[MAXTOKEN];
 char curfile[MAXPATHLEN];
 int continued_line;		/* previous line ends with '\\' */
@@ -54,6 +55,31 @@ static STRBUF *ib;
 
 #define tlen	(p - &token[0])
 static void pushbackchar(void);
+
+/*
+ * is_scala_spec:
+ */
+int
+is_scala_spec(char c)
+{
+	return (c == '$') ||
+		(c == '~') ||
+		(c == '=') ||
+		(c == '<') ||
+		(c == '>') ||
+		(c == '!') ||
+		(c == '#') ||
+		(c == '%') ||
+		(c == '^') ||
+		(c == '&') ||
+		(c == '|') ||
+		(c == '*') ||
+//		(c == '/') ||
+//		(c == '\\') ||
+		(c == '+') ||
+		(c == '-') ||
+		(c == ':');
+}
 
 /*
  * opentoken:
@@ -69,7 +95,7 @@ opentoken(const char *file)
 	ib = strbuf_open(MAXBUFLEN);
 	strlimcpy(curfile, file, sizeof(curfile));
 	sp = cp = lp = NULL; ptok[0] = '\0'; lineno = 0;
-	crflag = cmode = cppmode = ymode = 0;
+	crflag = cmode = cppmode = ymode = scalamode = 0;
 	continued_line = 0;
 	return 1;
 }
@@ -202,6 +228,25 @@ nexttoken(const char *interested, int (*reserved)(const char *, int))
 					continue;
 				}
 			}
+		} else if (is_scala_spec(c) && scalamode) {
+			p = token;
+			for (*p++ = c; (c = nextchar()) != EOF && is_scala_spec(c);) {
+				if (tlen < sizeof(token))
+					*p++ = c;
+			}
+			if (tlen == sizeof(token)) {
+				warning("symbol name is too long. (Ignored)[+%d %s]", lineno, curfile);
+				continue;
+			}
+			*p = 0;
+	
+			if (c != EOF)
+				pushbackchar();
+			/* convert token string into token number */
+			c = SYMBOL;
+			if (reserved)
+				c = (*reserved)(token, tlen);
+			break;
 		} else if (c & 0x80 || isalpha(c) || c == '_') {/* symbol */
 			p = token;
 			if (sharp) {

@@ -32,6 +32,7 @@ extern int crflag;
 extern int cmode;
 extern int cppmode;
 extern int ymode;
+extern int scalamode;
 extern char token[MAXTOKEN];
 extern char curfile[MAXPATHLEN];
 extern int continued_line;

@@ -14,7 +14,7 @@ noinst_LIBRARIES = libgloparser.a
 
 noinst_HEADERS = parser.h internal.h asm_parse.h
 
-libgloparser_a_SOURCES = parser.c C.c Cpp.c asm_parse.c asm_scan.c java.c php.c
+libgloparser_a_SOURCES = parser.c C.c Cpp.c asm_parse.c asm_scan.c java.c scala.c php.c
 
 INCLUDES = @INCLUDES@
 

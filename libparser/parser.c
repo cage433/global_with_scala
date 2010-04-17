@@ -208,6 +208,7 @@ static const struct lang_entry lang_switch[] = {
 	{"yacc",	yacc},
 	{"cpp",		Cpp},
 	{"java",	java},
+	{"scala",	scala},
 	{"php",		php},
 	{"asm",		assembly}
 };

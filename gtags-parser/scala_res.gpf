@@ -1,0 +1,105 @@
+%{
+#include "strmake.h"
+#define START_VARIABLE	1001
+#define START_WORD	2001
+#define START_SHARP	3001
+#define START_YACC	4001
+#define IS_RESERVED_WORD(a)	((a) >= START_WORD)
+#define IS_RESERVED_VARIABLE(a)	((a) >= START_VARIABLE && (a) < START_WORD)
+#define IS_RESERVED_SHARP(a)	((a) >= START_SHARP && (a) < START_YACC)
+#define IS_RESERVED_YACC(a)	((a) >= START_YACC)
+
+#define SCALA_ABSTRACT	2001
+#define SCALA_CASE	2002
+#define SCALA_CLASS	2003
+#define SCALA_CATCH	2004
+#define SCALA_DEF	2005
+#define SCALA_DO	2006
+#define SCALA_ELSE	2007
+#define SCALA_EXTENDS	2008
+#define SCALA_FINAL	2009
+#define SCALA_FINALLY	2010
+#define SCALA_FOR	2011
+#define SCALA_FORSOME	2012
+#define SCALA_IF	2013
+#define SCALA_IMPLICIT	2014
+#define SCALA_IMPORT	2015
+#define SCALA_LAZY	2016
+#define SCALA_NEW	2017
+#define SCALA_MATCH	2018
+#define SCALA_MIXIN	2019
+#define SCALA_OBJECT	2020
+#define SCALA_OVERRIDE	2021
+#define SCALA_PACKAGE	2022
+#define SCALA_PRIVATE	2023
+#define SCALA_PROTECTED	2024
+#define SCALA_REQUIRES	2025
+#define SCALA_RETURN	2026
+#define SCALA_SEALED	2027
+#define SCALA_SUPER	2028
+#define SCALA_THIS	2029
+#define SCALA_THROW	2030
+#define SCALA_TRAIT	2031
+#define SCALA_TRY	2032
+#define SCALA_TYPE	2033
+#define SCALA_VAL	2034
+#define SCALA_VAR	2035
+#define SCALA_WITH	2036
+#define SCALA_WHILE	2037
+#define SCALA_YIELD	2038
+#define SCALA_TRUE	2039
+#define SCALA_FALSE	2040
+#define SCALA_NULL	2041
+%}
+struct keyword { char *name; int token; }
+%%
+abstract, SCALA_ABSTRACT
+case, SCALA_CASE
+class, SCALA_CLASS
+catch, SCALA_CATCH
+def, SCALA_DEF
+do, SCALA_DO
+else, SCALA_ELSE
+extends, SCALA_EXTENDS
+final, SCALA_FINAL
+finally, SCALA_FINALLY
+for, SCALA_FOR
+forSome, SCALA_FORSOME
+if, SCALA_IF
+implicit, SCALA_IMPLICIT
+import, SCALA_IMPORT
+lazy, SCALA_LAZY
+new, SCALA_NEW
+match, SCALA_MATCH
+mixin, SCALA_MIXIN
+object, SCALA_OBJECT
+override, SCALA_OVERRIDE
+package, SCALA_PACKAGE
+private, SCALA_PRIVATE
+protected, SCALA_PROTECTED
+requires, SCALA_REQUIRES
+return, SCALA_RETURN
+sealed, SCALA_SEALED
+super, SCALA_SUPER
+this, SCALA_THIS
+throw, SCALA_THROW
+trait, SCALA_TRAIT
+try, SCALA_TRY
+type, SCALA_TYPE
+val, SCALA_VAL
+var, SCALA_VAR
+with, SCALA_WITH
+while, SCALA_WHILE
+yield, SCALA_YIELD
+true, SCALA_TRUE
+false, SCALA_FALSE
+null, SCALA_NULL
+%%
+int
+scala_reserved_word(const char *str, int len)
+{
+	struct keyword *keyword;
+
+	keyword = scala_lookup(str, len);
+	return (keyword && IS_RESERVED_WORD(keyword->token)) ? keyword->token : 0;
+}

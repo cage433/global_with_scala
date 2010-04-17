@@ -1,0 +1,57 @@
+;; Process this file with reserved.pl to create gperf source.
+;
+; Copyright (c) 2010 Quincy Liang
+;
+; This file is free software; as a special exception the author gives
+; unlimited permission to copy and/or distribute it, with or without
+; modifications, as long as this notice is preserved.
+;
+; This program is distributed in the hope that it will be useful, but
+; WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
+; implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+;
+; scala reserved word list.
+;
+abstract		word
+case			word
+class			word
+catch			word
+def			word
+do			word
+else			word
+extends			word
+final			word
+finally			word
+for			word
+forSome			word
+if			word
+implicit		word
+import			word
+lazy			word
+new			word
+match			word
+mixin			word
+object			word
+override		word
+package			word
+private			word
+protected		word
+requires		word
+return			word
+sealed			word
+super			word
+this			word
+throw			word
+trait			word
+try			word
+type			word
+val			word
+var			word
+with			word
+while			word
+yield			word
+true			word
+false			word
+null			word
+
