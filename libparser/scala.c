@@ -145,6 +145,7 @@ scala(const struct parser_param *param)
 			break;
 		case SCALA_CLASS:
 		case SCALA_TRAIT:
+		case SCALA_OBJECT:
 			if ((c = nexttoken(interested, scala_reserved_word)) == SYMBOL) {
 				strlimcpy(classname, token, sizeof(classname));
 				startclass = 1;
