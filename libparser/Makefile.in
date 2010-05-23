@@ -52,7 +52,7 @@ ARFLAGS = cru
 libgloparser_a_AR = $(AR) $(ARFLAGS)
 libgloparser_a_LIBADD =
 am_libgloparser_a_OBJECTS = parser.$(OBJEXT) C.$(OBJEXT) Cpp.$(OBJEXT) \
-	asm_parse.$(OBJEXT) asm_scan.$(OBJEXT) java.$(OBJEXT) \
+	asm_parse.$(OBJEXT) asm_scan.$(OBJEXT) java.$(OBJEXT) scala.$(OBJEXT)\
 	php.$(OBJEXT)
 libgloparser_a_OBJECTS = $(am_libgloparser_a_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -225,7 +225,7 @@ top_srcdir = @top_srcdir@
 #
 noinst_LIBRARIES = libgloparser.a
 noinst_HEADERS = parser.h internal.h asm_parse.h
-libgloparser_a_SOURCES = parser.c C.c Cpp.c asm_parse.c asm_scan.c java.c php.c
+libgloparser_a_SOURCES = parser.c C.c Cpp.c asm_parse.c asm_scan.c java.c scala.c php.c
 libgloparser_a_DEPENDENCIES = $(libgloparser_a_LIBADD)
 EXTRA_DIST = php.l asm_parse.y asm_scan.l
 all: all-am
@@ -281,6 +281,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/asm_parse.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/asm_scan.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/java.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/scala.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/php.Po@am__quote@
 
